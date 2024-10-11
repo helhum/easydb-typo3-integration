@@ -40,10 +40,10 @@ class ExtensionConfig
 
     private function setDerivedConfigOptions(): void
     {
-        $parsedUrl = parse_url((string)$this->config['serverUrl']);
+        $parsedUrl = parse_url((string)($this->config['serverUrl'] ?? ''));
         $this->config['serverHostName'] = $parsedUrl['host'] ?? '';
-        $this->config['allowedOrigin'] = ($parsedUrl['scheme'] ?? 'https') . '://' . $this->config['serverHostName'];
-        $this->config['transferSession'] = $this->needsSessionTransfer($this->config['serverHostName']);
+        $this->config['allowedOrigin'] = ($parsedUrl['scheme'] ?? 'https') . '://' . $this->config['serverHostName'] ?? '';
+        $this->config['transferSession'] = $this->needsSessionTransfer($this->config['serverHostName'] ?? '');
     }
 
     private function needsSessionTransfer(string $easyDbHostName): bool
